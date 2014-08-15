@@ -46,7 +46,7 @@ public class Mpu6050Helper {
 	public static final byte I2C_SLV4_DO = 0x33;
 	public static final byte I2C_SLV4_CTRL = 0x34;
 	public static final byte I2C_SLV4_DI = 0x35;
-	static final byte I2C_MST_STATUS = 0x36;
+	public static final byte I2C_MST_STATUS = 0x36;
 	public static final byte INT_PIN_CFG = 0x37;
 	public static final byte INT_ENABLE = 0x38;
 	public static final byte INT_STATUS = 0x3A;

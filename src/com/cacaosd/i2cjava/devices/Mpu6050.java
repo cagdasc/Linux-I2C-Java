@@ -37,11 +37,11 @@ public class Mpu6050 extends I2C {
 	}
 
 	public void setDeviceAddress(byte DEV_ADD) {
-		setDeviceAddress(DEV_ADD);
+		super.setDeviceAddress(DEV_ADD);
 	}
 
 	public byte getDeviceAddress() {
-		return getDeviceAddress();
+		return super.getDeviceAddress();
 	}
 
 	public void initalize() {

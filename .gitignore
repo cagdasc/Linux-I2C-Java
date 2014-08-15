@@ -103,3 +103,4 @@ hs_err_pid*
 *.x86_64
 *.hex
 
+Debug/

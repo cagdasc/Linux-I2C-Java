@@ -16,10 +16,25 @@
  */
 package com.cacaosd.i2cjava.examples;
 
+import com.cacaosd.i2cjava.devices.Mpu6050;
+
 public class Mpu6050Example {
+
+	static {
+		System.load("/home/ubuntu/I2CJava/jni/libI2CJava.so");
+	}
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
+		Mpu6050 mpu = new Mpu6050((byte) 0x68, (byte) 1);
+		mpu.initalize();
+		short[] accels;
+
+		while (true) {
+			accels = mpu.getAccelerations();
+			System.out.println("Accel X: " + accels[0] + " Accel Y: "
+					+ accels[1] + " Accel Z: " + accels[2]);
+		}
 
 	}
 
