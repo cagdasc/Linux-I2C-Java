@@ -9,10 +9,10 @@ using namespace cacaosd_bbb_i2c;
 #ifndef _Included_com_cacaosd_i2cjava_core_I2C
 #define _Included_com_cacaosd_i2cjava_core_I2C
 #ifdef __cplusplus
+uint8_t _DEV_ADD;
 BBB_I2C i2c;
 extern "C" {
 #endif
-uint8_t DEV_ADD;
 /*
  * Class:     com_cacaosd_i2cjava_core_I2C
  * Method:    setDeviceAddress
@@ -31,11 +31,19 @@ JNIEXPORT jbyte JNICALL Java_com_cacaosd_i2cjava_core_I2C_getDeviceAddress(
 
 /*
  * Class:     com_cacaosd_i2cjava_core_I2C
- * Method:    initialize
+ * Method:    setBusAddress
  * Signature: (B)V
  */
-JNIEXPORT void JNICALL Java_com_cacaosd_i2cjava_core_I2C_initialize(JNIEnv *,
+JNIEXPORT void JNICALL Java_com_cacaosd_i2cjava_core_I2C_setBusAddress(JNIEnv *,
 		jobject, jbyte);
+
+/*
+ * Class:     com_cacaosd_i2cjava_core_I2C
+ * Method:    getBusAddress
+ * Signature: ()B
+ */
+JNIEXPORT jbyte JNICALL Java_com_cacaosd_i2cjava_core_I2C_getBusAddress(
+		JNIEnv *, jobject);
 
 /*
  * Class:     com_cacaosd_i2cjava_core_I2C
@@ -47,27 +55,11 @@ JNIEXPORT void JNICALL Java_com_cacaosd_i2cjava_core_I2C_writeBit(JNIEnv *,
 
 /*
  * Class:     com_cacaosd_i2cjava_core_I2C
- * Method:    writeBitNoExit
- * Signature: (BBB)V
- */
-JNIEXPORT void JNICALL Java_com_cacaosd_i2cjava_core_I2C_writeBitNoExit(
-		JNIEnv *, jobject, jbyte, jbyte, jbyte);
-
-/*
- * Class:     com_cacaosd_i2cjava_core_I2C
  * Method:    writeMoreBits
  * Signature: (BBBB)V
  */
 JNIEXPORT void JNICALL Java_com_cacaosd_i2cjava_core_I2C_writeMoreBits(JNIEnv *,
 		jobject, jbyte, jbyte, jbyte, jbyte);
-
-/*
- * Class:     com_cacaosd_i2cjava_core_I2C
- * Method:    writeMoreBitsNoExit
- * Signature: (BBBB)V
- */
-JNIEXPORT void JNICALL Java_com_cacaosd_i2cjava_core_I2C_writeMoreBitsNoExit(
-		JNIEnv *, jobject, jbyte, jbyte, jbyte, jbyte);
 
 /*
  * Class:     com_cacaosd_i2cjava_core_I2C
@@ -79,26 +71,10 @@ JNIEXPORT void JNICALL Java_com_cacaosd_i2cjava_core_I2C_writeByte(JNIEnv *,
 
 /*
  * Class:     com_cacaosd_i2cjava_core_I2C
- * Method:    writeByteNoExit
- * Signature: (BB)V
- */
-JNIEXPORT void JNICALL Java_com_cacaosd_i2cjava_core_I2C_writeByteNoExit(
-		JNIEnv *, jobject, jbyte, jbyte);
-
-/*
- * Class:     com_cacaosd_i2cjava_core_I2C
  * Method:    writeByteBuffer
  * Signature: (B[B)V
  */
 JNIEXPORT void JNICALL Java_com_cacaosd_i2cjava_core_I2C_writeByteBuffer(
-		JNIEnv *, jobject, jbyte, jbyteArray);
-
-/*
- * Class:     com_cacaosd_i2cjava_core_I2C
- * Method:    writeByteBufferNoExit
- * Signature: (B[B)V
- */
-JNIEXPORT void JNICALL Java_com_cacaosd_i2cjava_core_I2C_writeByteBufferNoExit(
 		JNIEnv *, jobject, jbyte, jbyteArray);
 
 /*
@@ -111,26 +87,10 @@ JNIEXPORT void JNICALL Java_com_cacaosd_i2cjava_core_I2C_writeByteArduino(
 
 /*
  * Class:     com_cacaosd_i2cjava_core_I2C
- * Method:    writeByteArduinoNoExit
- * Signature: (B)V
- */
-JNIEXPORT void JNICALL Java_com_cacaosd_i2cjava_core_I2C_writeByteArduinoNoExit(
-		JNIEnv *, jobject, jbyte);
-
-/*
- * Class:     com_cacaosd_i2cjava_core_I2C
  * Method:    writeByteBufferArduino
  * Signature: ([B)V
  */
 JNIEXPORT void JNICALL Java_com_cacaosd_i2cjava_core_I2C_writeByteBufferArduino(
-		JNIEnv *, jobject, jbyteArray);
-
-/*
- * Class:     com_cacaosd_i2cjava_core_I2C
- * Method:    writeByteBufferArduinoNoExit
- * Signature: ([B)V
- */
-JNIEXPORT void JNICALL Java_com_cacaosd_i2cjava_core_I2C_writeByteBufferArduinoNoExit(
 		JNIEnv *, jobject, jbyteArray);
 
 /*
@@ -143,27 +103,11 @@ JNIEXPORT jbyte JNICALL Java_com_cacaosd_i2cjava_core_I2C_readBit(JNIEnv *,
 
 /*
  * Class:     com_cacaosd_i2cjava_core_I2C
- * Method:    readBitNoExit
- * Signature: (BB)B
- */
-JNIEXPORT jbyte JNICALL Java_com_cacaosd_i2cjava_core_I2C_readBitNoExit(
-		JNIEnv *, jobject, jbyte, jbyte);
-
-/*
- * Class:     com_cacaosd_i2cjava_core_I2C
  * Method:    readMoreBits
  * Signature: (BBB)B
  */
 JNIEXPORT jbyte JNICALL Java_com_cacaosd_i2cjava_core_I2C_readMoreBits(JNIEnv *,
 		jobject, jbyte, jbyte, jbyte);
-
-/*
- * Class:     com_cacaosd_i2cjava_core_I2C
- * Method:    readMoreBitsNoExit
- * Signature: (BBB)B
- */
-JNIEXPORT jbyte JNICALL Java_com_cacaosd_i2cjava_core_I2C_readMoreBitsNoExit(
-		JNIEnv *, jobject, jbyte, jbyte, jbyte);
 
 /*
  * Class:     com_cacaosd_i2cjava_core_I2C
@@ -175,26 +119,10 @@ JNIEXPORT jbyte JNICALL Java_com_cacaosd_i2cjava_core_I2C_readByte(JNIEnv *,
 
 /*
  * Class:     com_cacaosd_i2cjava_core_I2C
- * Method:    readByteNoExit
- * Signature: (B)B
- */
-JNIEXPORT jbyte JNICALL Java_com_cacaosd_i2cjava_core_I2C_readByteNoExit(
-		JNIEnv *, jobject, jbyte);
-
-/*
- * Class:     com_cacaosd_i2cjava_core_I2C
  * Method:    readByteBuffer
  * Signature: (BB)[B
  */
 JNIEXPORT jbyteArray JNICALL Java_com_cacaosd_i2cjava_core_I2C_readByteBuffer(
-		JNIEnv *, jobject, jbyte, jbyte);
-
-/*
- * Class:     com_cacaosd_i2cjava_core_I2C
- * Method:    readByteBufferNoExit
- * Signature: (BB)[B
- */
-JNIEXPORT jbyteArray JNICALL Java_com_cacaosd_i2cjava_core_I2C_readByteBufferNoExit(
 		JNIEnv *, jobject, jbyte, jbyte);
 
 /*
@@ -207,27 +135,11 @@ JNIEXPORT jbyteArray JNICALL Java_com_cacaosd_i2cjava_core_I2C_readByteBufferArd
 
 /*
  * Class:     com_cacaosd_i2cjava_core_I2C
- * Method:    readByteBufferArduinoNoExit
- * Signature: (B)[B
- */
-JNIEXPORT jbyteArray JNICALL Java_com_cacaosd_i2cjava_core_I2C_readByteBufferArduinoNoExit(
-		JNIEnv *, jobject, jbyte);
-
-/*
- * Class:     com_cacaosd_i2cjava_core_I2C
  * Method:    readWord
  * Signature: (BB)S
  */
 JNIEXPORT jshort JNICALL Java_com_cacaosd_i2cjava_core_I2C_readWord(JNIEnv *,
 		jobject, jbyte, jbyte);
-
-/*
- * Class:     com_cacaosd_i2cjava_core_I2C
- * Method:    readWordNoExit
- * Signature: (BB)S
- */
-JNIEXPORT jshort JNICALL Java_com_cacaosd_i2cjava_core_I2C_readWordNoExit(
-		JNIEnv *, jobject, jbyte, jbyte);
 
 #ifdef __cplusplus
 }

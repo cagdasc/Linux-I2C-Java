@@ -18,70 +18,147 @@ package com.cacaosd.i2cjava.core;
 
 public class I2C {
 
-	private byte bus;
-
+	/**
+	 * Constructor
+	 * 
+	 * @param device_address
+	 * @param bus
+	 */
 	public I2C(byte device_address, byte bus) {
-		initialize(bus);
+		setBusAddress(bus);
 		setDeviceAddress(device_address);
 	}
 
+	/**
+	 * Set slave device address.
+	 * 
+	 * @param device_address
+	 */
 	public native void setDeviceAddress(byte device_address);
 
+	/**
+	 * Get slave device address.
+	 * 
+	 * @return device_address
+	 */
 	public native byte getDeviceAddress();
 
-	public native void initialize(byte bus);
+	/**
+	 * Set I2C bus address
+	 * 
+	 * @param bus
+	 */
+	public native void setBusAddress(byte bus);
 
+	/**
+	 * Get I2C bus address
+	 * 
+	 * @return bus
+	 */
+	public native byte getBusAddress();
+
+	/**
+	 * Write one bit to register which given specific bit number.
+	 * 
+	 * @param register_address
+	 * @param data
+	 * @param bit_no
+	 */
 	public native void writeBit(byte register_address, byte data, byte bit_no);
 
-	public native void writeBitNoExit(byte register_address, byte data,
-			byte bit_no);
-
+	/**
+	 * Write multiple bits to register.
+	 * 
+	 * @param register_address
+	 * @param data
+	 * @param bit_length
+	 * @param start_bit
+	 */
 	public native void writeMoreBits(byte register_address, byte data,
 			byte bit_length, byte start_bit);
 
-	public native void writeMoreBitsNoExit(byte register_address, byte data,
-			byte bit_length, byte start_bit);
-
+	/**
+	 * Write one byte to register.
+	 * 
+	 * @param register_Address
+	 * @param data
+	 */
 	public native void writeByte(byte register_Address, byte data);
 
-	public native void writeByteNoExit(byte register_Address, byte data);
-
+	/**
+	 * Write byte array to register.
+	 * 
+	 * @param register_address
+	 * @param data
+	 */
 	public native void writeByteBuffer(byte register_address, byte[] data);
 
-	public native void writeByteBufferNoExit(byte register_address, byte[] data);
-
+	/**
+	 * Write one byte to Arduino device.
+	 * 
+	 * @param data
+	 */
 	public native void writeByteArduino(byte data);
 
-	public native void writeByteArduinoNoExit(byte data);
-
+	/**
+	 * Write byte array to Arduino device.
+	 * 
+	 * @param data
+	 */
 	public native void writeByteBufferArduino(byte[] data);
 
-	public native void writeByteBufferArduinoNoExit(byte[] data);
-
+	/**
+	 * Read one bit from register which given specific bit number.
+	 * 
+	 * @param register_address
+	 * @param bit_no
+	 * @return
+	 */
 	public native byte readBit(byte register_address, byte bit_no);
 
-	public native byte readBitNoExit(byte register_address, byte bit_no);
-
+	/**
+	 * Read multiple bits from register.
+	 * 
+	 * @param register_address
+	 * @param length
+	 * @param start_bit
+	 * @return data type of byte
+	 */
 	public native byte readMoreBits(byte register_address, byte length,
 			byte start_bit);
 
-	public native byte readMoreBitsNoExit(byte register_address, byte length,
-			byte start_bit);
-
+	/**
+	 * Read one byte from register.
+	 * 
+	 * @param register_address
+	 * @return data type of byte
+	 */
 	public native byte readByte(byte register_address);
 
-	public native byte readByteNoExit(byte register_address);
-
+	/**
+	 * Read byte array from register.
+	 * 
+	 * @param register_address
+	 * @param length
+	 * @return data type of byte
+	 */
 	public native byte[] readByteBuffer(byte register_address, byte length);
 
-	public native byte[] readByteBufferNoExit(byte register_address, byte length);
-
+	/**
+	 * Read byte array from Arduino device.
+	 * 
+	 * @param length
+	 * @return data type of byte array
+	 */
 	public native byte[] readByteBufferArduino(byte length);
 
-	public native byte[] readByteBufferArduinoNoExit(byte length);
-
+	/**
+	 * Read one word from register.
+	 * 
+	 * @param msb_address
+	 * @param lsb_address
+	 * @return data type of short
+	 */
 	public native short readWord(byte msb_address, byte lsb_address);
-
-	public native short readWordNoExit(byte msb_address, byte lsb_address);
 
 }

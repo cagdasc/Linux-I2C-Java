@@ -41,40 +41,22 @@ public:
 
 	int openConnection();
 	void setBusAddress(uint8_t busAddr);
+	uint8_t getBusAddress();
 
-	//Write Methods
 	void writeBit(uint8_t DATA_REGADD, uint8_t data, uint8_t bitNum);
-	void writeBitNoExit(uint8_t DATA_REGADD, uint8_t data, uint8_t bitNum);
 	void writeMoreBits(uint8_t DATA_REGADD, uint8_t data, uint8_t length,
 			uint8_t startBit);
-	void writeMoreBitsNoExit(uint8_t DATA_REGADD, uint8_t data, uint8_t length,
-			uint8_t startBit);
 	void writeByte(uint8_t DATA_REGADD, uint8_t data);
-	void writeByteNoExit(uint8_t DATA_REGADD, uint8_t data);
 	void writeByteBuffer(uint8_t DATA_REGADD, uint8_t *data, uint8_t length);
-	void writeByteBufferNoExit(uint8_t DATA_REGADD, uint8_t *data,
-			uint8_t length);
 	void writeByteArduino(int8_t data);
-	void writeByteArduinoNoExit(int8_t data);
 	void writeByteBufferArduino(uint8_t *data, uint8_t length);
-	void writeByteBufferArduinoNoExit(uint8_t *data, uint8_t length);
 
-	//Read Methods
 	uint8_t readBit(uint8_t DATA_REGADD, uint8_t bitNum);
-	uint8_t readBitNoExit(uint8_t DATA_REGADD, uint8_t bitNum);
 	uint8_t readMoreBits(uint8_t DATA_REGADD, uint8_t length, uint8_t startBit);
-	uint8_t readMoreBitsNoExit(uint8_t DATA_REGADD, uint8_t length,
-			uint8_t startBit);
 	uint8_t readByte(uint8_t DATA_REGADD);
-	uint8_t readByteNoExit(uint8_t DATA_REGADD);
 	void readByteBuffer(uint8_t DATA_REGADD, uint8_t *data, uint8_t length);
-	void readByteBufferNoExit(uint8_t DATA_REGADD, uint8_t *data,
-			uint8_t length);
 	void readByteBufferArduino(uint8_t *data, uint8_t length);
-	void readByteBufferArduinoNoExit(uint8_t *data, uint8_t length);
 	int16_t readWord(uint8_t MSB, uint8_t LSB);
-	int16_t readWordNoExit(uint8_t MSB, uint8_t LSB);
-
 	void setDEV_ADD(uint8_t DEV_ADD);
 
 private:

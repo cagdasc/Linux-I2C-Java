@@ -29,11 +29,20 @@ public class Mpu6050Example {
 		Mpu6050 mpu = new Mpu6050((byte) 0x68, (byte) 1);
 		mpu.initalize();
 		short[] accels;
+		float k = 16000;
 
 		while (true) {
 			accels = mpu.getAccelerations();
-			System.out.println("Accel X: " + accels[0] + " Accel Y: "
-					+ accels[1] + " Accel Z: " + accels[2]);
+			System.out.println("Accel X: " + (float) accels[0] / k);
+			System.out.println("Accel Y: " + (float) accels[1] / k);
+			System.out.println("Accel Z: " + (float) accels[2] / k);
+			System.out.println("-----------------");
+			try {
+				Thread.sleep(200);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 
 	}
