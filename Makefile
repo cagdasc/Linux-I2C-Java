@@ -12,38 +12,43 @@
 
  #You should have received a copy of the GNU General Public License
  #along with this program.  If not, see <http://www.gnu.org/licenses/>.
- 
-CXX=g++
-CXX_INCLUDE=-I$(JAVA_HOME)/include -I/$(JAVA_HOME)/include/linux
-SOURCE=jni/I2C.cpp jni/BBB_I2C.cpp
-CFLAGS=-shared -fPIC -o
-SLIB_OUTPUT=libI2CJava.so
 
 JC=javac
 JVM=java
+CXX=g++
+CXX_INCLUDE=-I$(JAVA_HOME)/include -I/$(JAVA_HOME)/include/linux
+SOURCE=library/jni/I2cPortJava.cpp library/jni/I2cPort.cpp
+
+CFLAGS=-shared -fPIC -o
+SLIB_OUTPUT=libi2cport.so
+SLIB_PATH=`pwd`/library/jni/
 CLASSPATH_FLAGS0=-d bin/
 CLASSPATH_FLAGS1=-classpath bin/
-SRC_CORE_LIB=src/com/cacaosd/i2cjava/core/I2C.java
-SRC_DEV_LIB=src/com/cacaosd/i2cjava/devices/*.java
-SRC_MPU6050_EX=src/com/cacaosd/i2cjava/examples/Mpu6050Example.java
-EXEC=com.cacaosd.i2cjava.examples.Mpu6050Example
 
-all: $(EXEC)
+SRC_CORE_LIB=library/src/com/cacaosd/i2c/core/I2cPort.java
+SRC_DEV_LIB=library/src/com/cacaosd/i2c/devices/*.java
+SRC_MPU6050_EX=samples/src/com/cacaosd/i2c/Mpu6050Sample.java
+
+COMPILE=Compile
+MPU6050_EXEC=com.cacaosd.i2c.Mpu6050Sample
+
+all: $(COMPILE)
 	@echo "Successful."
+
 run:
 	@echo "Running..."
-	@$(JVM) $(CLASSPATH_FLAGS1) $(EXEC)
+	@echo "java library path="$(SLIB_PATH)
+	@$(JVM) -Djava.library.path=$(SLIB_PATH) $(CLASSPATH_FLAGS1) $(MPU6050_EXEC)
 
-$(SLIB_OUTPUT):
-	@echo "Shared library creating..."
-	@$(CXX) $(CXX_INCLUDE) $(SOURCE) $(CFLAGS) jni/$(SLIB_OUTPUT)
-
-$(EXEC): $(SLIB_OUTPUT)
-	@#javac can not create classpath(bin/) folder
+$(COMPILE): $(SLIB_OUTPUT)
 	@mkdir -p bin
 	@echo "Java files compiling..."
 	@$(JC) $(CLASSPATH_FLAGS0) $(CLASSPATH_FLAGS1) $(SRC_CORE_LIB) $(SRC_DEV_LIB) $(SRC_MPU6050_EX)
 
+$(SLIB_OUTPUT):
+	@echo "Shared library creating..."
+	@$(CXX) $(CXX_INCLUDE) $(SOURCE) $(CFLAGS) library/jni/$(SLIB_OUTPUT)
+
 clean:
 	@echo "Classpath and shared library files removed."
-	@rm -rf jni/*.so bin/com
+	@rm -rf library/jni/*.so bin/*

@@ -1,10 +1,14 @@
-I2CJava
+Linux-I2C-Java
 ===========================
-This native library written for BeagleBone Black. I use JNI(java Native Interface) and combine my [I2C library](https://github.com/cagdasc/BeagleBoneBlack-I2C).
-You can use I2C interface with your Java applications with this library. This library only experimental.
-It's not fully tested but You can find a simple example for Mpu6050.
+This native library written for Linux Systems. This library include JNI(java Native Interface) implementation. Find native library in this [repo](https://github.com/cagdasc/Linux-I2C).
+You can use I2C interface for your Java applications with this library.
+It's not fully tested but You can find a simple sample for Mpu6050.
 
-NOTE: Library is developing and other devices will be added.
+**Warning:** It's only experimental, not in use production.
+
+**NOTE:** Library is developing and other devices will be added.
+
+**Important Note:** You need to set JAVA_HOME environment variable.
 
 #Usage
 	make clean
