@@ -29,10 +29,9 @@ public class Mpu6050Sample {
     public static void main(String[] args) {
         // TODO Auto-generated method stub
         Mpu6050 mpu = new Mpu6050((byte) 0x68, (byte) 2);
-        mpu.initalize();
+        mpu.initialize();
         short[] accels;
         float k = 16000;
-        System.out.println("Init");
 
         while (true) {
             accels = mpu.getAccelerations();

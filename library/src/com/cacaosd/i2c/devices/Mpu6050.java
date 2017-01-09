@@ -17,17 +17,17 @@
 package com.cacaosd.i2c.devices;
 
 import com.cacaosd.i2c.core.I2cPort;
+import com.cacaosd.i2c.devices.constants.Mpu6050Constants;
 
 public class Mpu6050 {
 
 	private I2cPort i2cPort;
 	private boolean actionMode;
 
-	public Mpu6050(byte device_address, byte bus) {
+	public Mpu6050(byte deviceAddress, byte bus) {
 		// TODO Auto-generated constructor stub
 		this.actionMode = true;
-		this.i2cPort = new I2cPort(device_address, bus);
-		this.i2cPort.openConnection();
+		this.i2cPort = new I2cPort(deviceAddress, bus);
 	}
 
 	void setActionMode(boolean actionMode) {
@@ -38,32 +38,32 @@ public class Mpu6050 {
 		return actionMode;
 	}
 
-	public void setDeviceAddress(byte DEV_ADD) {
-		i2cPort.setDeviceAddress(DEV_ADD);
+	public void setDeviceAddress(byte deviceAddress) {
+		i2cPort.setDeviceAddress(deviceAddress);
 	}
 
 	public byte getDeviceAddress() {
 		return i2cPort.getDeviceAddress();
 	}
 
-	public void initalize() {
+	public void initialize() {
 		setSleepMode(false);
 		setRangeAcceleration((byte) 0);
 		setRangeGyroscope((byte) 0);
 	}
 
 	public void setSleepMode(boolean mode) {
-		byte var = i2cPort.readByte(Mpu6050Helper.PWR_MGMT_1);
+		byte var = i2cPort.readByte(Mpu6050Constants.PWR_MGMT_1);
 		if (mode) {
 			var |= 64;
 		} else {
 			var &= ~64;
 		}
-		i2cPort.writeByte(Mpu6050Helper.PWR_MGMT_1, var);
+		i2cPort.writeByte(Mpu6050Constants.PWR_MGMT_1, var);
 	}
 
 	public boolean getSleepMode() {
-		byte var = i2cPort.readByte(Mpu6050Helper.PWR_MGMT_1);
+		byte var = i2cPort.readByte(Mpu6050Constants.PWR_MGMT_1);
 		var >>= 6;
 		var %= 2;
 		if (var == 1) {
@@ -74,7 +74,7 @@ public class Mpu6050 {
 	}
 
 	public void setRangeAcceleration(byte range) {
-		byte afs = i2cPort.readByte(Mpu6050Helper.ACCEL_CONFIG);
+		byte afs = i2cPort.readByte(Mpu6050Constants.ACCEL_CONFIG);
 		if (range == 0) {
 			afs &= ~24;
 		} else if (range == 1) {
@@ -86,18 +86,18 @@ public class Mpu6050 {
 		} else {
 			afs |= 24;
 		}
-		i2cPort.writeByte(Mpu6050Helper.ACCEL_CONFIG, afs);
+		i2cPort.writeByte(Mpu6050Constants.ACCEL_CONFIG, afs);
 	}
 
 	public byte getRangeAcceleration() {
-		byte afs = i2cPort.readByte(Mpu6050Helper.ACCEL_CONFIG);
+		byte afs = i2cPort.readByte(Mpu6050Constants.ACCEL_CONFIG);
 		afs >>= 3;
 		afs %= 4;
 		return afs;
 	}
 
 	public void setRangeGyroscope(byte range) {
-		byte fs = i2cPort.readByte(Mpu6050Helper.GYRO_CONFIG);
+		byte fs = i2cPort.readByte(Mpu6050Constants.GYRO_CONFIG);
 		if (range == 0) {
 			fs &= ~24;
 		} else if (range == 1) {
@@ -109,11 +109,11 @@ public class Mpu6050 {
 		} else {
 			fs |= 24;
 		}
-		i2cPort.writeByte(Mpu6050Helper.GYRO_CONFIG, fs);
+		i2cPort.writeByte(Mpu6050Constants.GYRO_CONFIG, fs);
 	}
 
 	public byte getRangeGyroscope() {
-		byte fs = i2cPort.readByte(Mpu6050Helper.GYRO_CONFIG);
+		byte fs = i2cPort.readByte(Mpu6050Constants.GYRO_CONFIG);
 		fs >>= 3;
 		fs %= 4;
 		return fs;
@@ -121,80 +121,80 @@ public class Mpu6050 {
 
 	public short[] getAccelerations() {
 		short[] accels = new short[3];
-		accels[0] = i2cPort.readWord(Mpu6050Helper.ACCEL_XOUT_H,
-				Mpu6050Helper.ACCEL_XOUT_L);
-		accels[1] = i2cPort.readWord(Mpu6050Helper.ACCEL_YOUT_H,
-				Mpu6050Helper.ACCEL_YOUT_L);
-		accels[2] = i2cPort.readWord(Mpu6050Helper.ACCEL_ZOUT_H,
-				Mpu6050Helper.ACCEL_ZOUT_L);
+		accels[0] = i2cPort.readWord(Mpu6050Constants.ACCEL_XOUT_H,
+				Mpu6050Constants.ACCEL_XOUT_L);
+		accels[1] = i2cPort.readWord(Mpu6050Constants.ACCEL_YOUT_H,
+				Mpu6050Constants.ACCEL_YOUT_L);
+		accels[2] = i2cPort.readWord(Mpu6050Constants.ACCEL_ZOUT_H,
+				Mpu6050Constants.ACCEL_ZOUT_L);
 		return accels;
 	}
 
 	public short getAccelerationX() {
-		return i2cPort.readWord(Mpu6050Helper.ACCEL_XOUT_H,
-				Mpu6050Helper.ACCEL_XOUT_L);
+		return i2cPort.readWord(Mpu6050Constants.ACCEL_XOUT_H,
+				Mpu6050Constants.ACCEL_XOUT_L);
 	}
 
 	public short getAccelerationY() {
-		return i2cPort.readWord(Mpu6050Helper.ACCEL_YOUT_H,
-				Mpu6050Helper.ACCEL_YOUT_L);
+		return i2cPort.readWord(Mpu6050Constants.ACCEL_YOUT_H,
+				Mpu6050Constants.ACCEL_YOUT_L);
 	}
 
 	public short getAccelerationZ() {
-		return i2cPort.readWord(Mpu6050Helper.ACCEL_ZOUT_H,
-				Mpu6050Helper.ACCEL_ZOUT_L);
+		return i2cPort.readWord(Mpu6050Constants.ACCEL_ZOUT_H,
+				Mpu6050Constants.ACCEL_ZOUT_L);
 	}
 
 	public short[] getAngularVelocities() {
 		short[] velocities = new short[3];
-		velocities[0] = i2cPort.readWord(Mpu6050Helper.GYRO_XOUT_H,
-				Mpu6050Helper.GYRO_XOUT_L);
-		velocities[1] = i2cPort.readWord(Mpu6050Helper.GYRO_YOUT_H,
-				Mpu6050Helper.GYRO_YOUT_L);
-		velocities[2] = i2cPort.readWord(Mpu6050Helper.GYRO_ZOUT_H,
-				Mpu6050Helper.GYRO_ZOUT_L);
+		velocities[0] = i2cPort.readWord(Mpu6050Constants.GYRO_XOUT_H,
+				Mpu6050Constants.GYRO_XOUT_L);
+		velocities[1] = i2cPort.readWord(Mpu6050Constants.GYRO_YOUT_H,
+				Mpu6050Constants.GYRO_YOUT_L);
+		velocities[2] = i2cPort.readWord(Mpu6050Constants.GYRO_ZOUT_H,
+				Mpu6050Constants.GYRO_ZOUT_L);
 		return velocities;
 	}
 
 	public short getAngularVelocityX() {
-		return i2cPort.readWord(Mpu6050Helper.GYRO_XOUT_H,
-				Mpu6050Helper.GYRO_XOUT_L);
+		return i2cPort.readWord(Mpu6050Constants.GYRO_XOUT_H,
+				Mpu6050Constants.GYRO_XOUT_L);
 	}
 
 	public short getAngularVelocityY() {
-		return i2cPort.readWord(Mpu6050Helper.GYRO_YOUT_H,
-				Mpu6050Helper.GYRO_YOUT_L);
+		return i2cPort.readWord(Mpu6050Constants.GYRO_YOUT_H,
+				Mpu6050Constants.GYRO_YOUT_L);
 	}
 
 	public short getAngularVelocityZ() {
-		return i2cPort.readWord(Mpu6050Helper.GYRO_ZOUT_H,
-				Mpu6050Helper.GYRO_ZOUT_L);
+		return i2cPort.readWord(Mpu6050Constants.GYRO_ZOUT_H,
+				Mpu6050Constants.GYRO_ZOUT_L);
 	}
 
 	public short getTemperature() {
-		return i2cPort.readWord(Mpu6050Helper.TEMP_OUT_H,
-				Mpu6050Helper.TEMP_OUT_L);
+		return i2cPort.readWord(Mpu6050Constants.TEMP_OUT_H,
+				Mpu6050Constants.TEMP_OUT_L);
 	}
 
 	public short[] getMotion6() {
 		short[] motion6 = new short[6];
-		motion6[0] = i2cPort.readWord(Mpu6050Helper.ACCEL_XOUT_H,
-				Mpu6050Helper.ACCEL_XOUT_L);
-		motion6[1] = i2cPort.readWord(Mpu6050Helper.ACCEL_YOUT_H,
-				Mpu6050Helper.ACCEL_YOUT_L);
-		motion6[2] = i2cPort.readWord(Mpu6050Helper.ACCEL_ZOUT_H,
-				Mpu6050Helper.ACCEL_ZOUT_L);
-		motion6[3] = i2cPort.readWord(Mpu6050Helper.GYRO_XOUT_H,
-				Mpu6050Helper.GYRO_XOUT_L);
-		motion6[4] = i2cPort.readWord(Mpu6050Helper.GYRO_YOUT_H,
-				Mpu6050Helper.GYRO_YOUT_L);
-		motion6[5] = i2cPort.readWord(Mpu6050Helper.GYRO_ZOUT_H,
-				Mpu6050Helper.GYRO_ZOUT_L);
+		motion6[0] = i2cPort.readWord(Mpu6050Constants.ACCEL_XOUT_H,
+				Mpu6050Constants.ACCEL_XOUT_L);
+		motion6[1] = i2cPort.readWord(Mpu6050Constants.ACCEL_YOUT_H,
+				Mpu6050Constants.ACCEL_YOUT_L);
+		motion6[2] = i2cPort.readWord(Mpu6050Constants.ACCEL_ZOUT_H,
+				Mpu6050Constants.ACCEL_ZOUT_L);
+		motion6[3] = i2cPort.readWord(Mpu6050Constants.GYRO_XOUT_H,
+				Mpu6050Constants.GYRO_XOUT_L);
+		motion6[4] = i2cPort.readWord(Mpu6050Constants.GYRO_YOUT_H,
+				Mpu6050Constants.GYRO_YOUT_L);
+		motion6[5] = i2cPort.readWord(Mpu6050Constants.GYRO_ZOUT_H,
+				Mpu6050Constants.GYRO_ZOUT_L);
 		return motion6;
 	}
 
 	public void setDLPFMode(byte mode) {
-		byte config = i2cPort.readByte(Mpu6050Helper.CONFIG);
+		byte config = i2cPort.readByte(Mpu6050Constants.CONFIG);
 		if (mode == 0) {
 			config &= ~7;
 		} else if (mode == 1) {
@@ -218,135 +218,135 @@ public class Mpu6050 {
 		} else if (mode == 7) {
 			config |= 7;
 		}
-		i2cPort.writeByte(Mpu6050Helper.CONFIG, config);
+		i2cPort.writeByte(Mpu6050Constants.CONFIG, config);
 	}
 
 	public byte getDLPFMode() {
-		byte config = i2cPort.readByte(Mpu6050Helper.CONFIG);
+		byte config = i2cPort.readByte(Mpu6050Constants.CONFIG);
 		return config %= 8;
 	}
 
 	public void setSampleRate(byte rate) {
-		i2cPort.writeByte(Mpu6050Helper.SMPLRT_DIV, rate);
+		i2cPort.writeByte(Mpu6050Constants.SMPLRT_DIV, rate);
 	}
 
 	public byte getSampleRate() {
-		return i2cPort.readByte(Mpu6050Helper.SMPLRT_DIV);
+		return i2cPort.readByte(Mpu6050Constants.SMPLRT_DIV);
 	}
 
 	public void setMotionDetectionThresold(byte value) {
-		i2cPort.writeByte(Mpu6050Helper.MOT_THR, value);
+		i2cPort.writeByte(Mpu6050Constants.MOT_THR, value);
 	}
 
 	public byte getMotionDecetionThresold() {
-		return i2cPort.readByte(Mpu6050Helper.MOT_THR);
+		return i2cPort.readByte(Mpu6050Constants.MOT_THR);
 	}
 
 	public void setTEMP_FIFO_EN(byte value) {
-		i2cPort.writeBit(Mpu6050Helper.FIFO_EN, value,
-				Mpu6050Helper.TEMP_FIFO_EN_BIT);
+		i2cPort.writeBit(Mpu6050Constants.FIFO_EN, value,
+				Mpu6050Constants.TEMP_FIFO_EN_BIT);
 	}
 
 	public byte getTEMP_FIFO_EN() {
-		return i2cPort.readBit(Mpu6050Helper.FIFO_EN,
-				Mpu6050Helper.TEMP_FIFO_EN_BIT);
+		return i2cPort.readBit(Mpu6050Constants.FIFO_EN,
+				Mpu6050Constants.TEMP_FIFO_EN_BIT);
 	}
 
 	public void setXG_FIFO_EN(byte value) {
-		i2cPort.writeBit(Mpu6050Helper.FIFO_EN, value,
-				Mpu6050Helper.XG_FIFO_EN_BIT);
+		i2cPort.writeBit(Mpu6050Constants.FIFO_EN, value,
+				Mpu6050Constants.XG_FIFO_EN_BIT);
 	}
 
 	public byte getXG_FIFO_EN() {
-		return i2cPort.readBit(Mpu6050Helper.FIFO_EN,
-				Mpu6050Helper.XG_FIFO_EN_BIT);
+		return i2cPort.readBit(Mpu6050Constants.FIFO_EN,
+				Mpu6050Constants.XG_FIFO_EN_BIT);
 	}
 
 	public void setYG_FIFO_EN(byte value) {
-		i2cPort.writeBit(Mpu6050Helper.FIFO_EN, value,
-				Mpu6050Helper.YG_FIFO_EN_BIT);
+		i2cPort.writeBit(Mpu6050Constants.FIFO_EN, value,
+				Mpu6050Constants.YG_FIFO_EN_BIT);
 	}
 
 	public byte getYG_FIFO_EN() {
-		return i2cPort.readBit(Mpu6050Helper.FIFO_EN,
-				Mpu6050Helper.YG_FIFO_EN_BIT);
+		return i2cPort.readBit(Mpu6050Constants.FIFO_EN,
+				Mpu6050Constants.YG_FIFO_EN_BIT);
 	}
 
 	public void setZG_FIFO_EN(byte value) {
-		i2cPort.writeBit(Mpu6050Helper.FIFO_EN, value,
-				Mpu6050Helper.ZG_FIFO_EN_BIT);
+		i2cPort.writeBit(Mpu6050Constants.FIFO_EN, value,
+				Mpu6050Constants.ZG_FIFO_EN_BIT);
 	}
 
 	public byte getZG_FIFO_EN() {
-		return i2cPort.readBit(Mpu6050Helper.FIFO_EN,
-				Mpu6050Helper.ZG_FIFO_EN_BIT);
+		return i2cPort.readBit(Mpu6050Constants.FIFO_EN,
+				Mpu6050Constants.ZG_FIFO_EN_BIT);
 	}
 
 	public void setACCEL_FIFO_EN(byte value) {
-		i2cPort.writeBit(Mpu6050Helper.FIFO_EN, value,
-				Mpu6050Helper.ACCEL_FIFO_EN_BIT);
+		i2cPort.writeBit(Mpu6050Constants.FIFO_EN, value,
+				Mpu6050Constants.ACCEL_FIFO_EN_BIT);
 	}
 
 	public byte getACCEL_FIFO_EN() {
-		return i2cPort.readBit(Mpu6050Helper.FIFO_EN,
-				Mpu6050Helper.ACCEL_FIFO_EN_BIT);
+		return i2cPort.readBit(Mpu6050Constants.FIFO_EN,
+				Mpu6050Constants.ACCEL_FIFO_EN_BIT);
 	}
 
 	public void setSLV2_FIFO_EN(byte value) {
-		i2cPort.writeBit(Mpu6050Helper.FIFO_EN, value,
-				Mpu6050Helper.SLV2_FIFO_EN_BIT);
+		i2cPort.writeBit(Mpu6050Constants.FIFO_EN, value,
+				Mpu6050Constants.SLV2_FIFO_EN_BIT);
 	}
 
 	public byte getSLV2_FIFO_EN() {
-		return i2cPort.readBit(Mpu6050Helper.FIFO_EN,
-				Mpu6050Helper.SLV2_FIFO_EN_BIT);
+		return i2cPort.readBit(Mpu6050Constants.FIFO_EN,
+				Mpu6050Constants.SLV2_FIFO_EN_BIT);
 	}
 
 	public void setSLV1_FIFO_EN(byte value) {
-		i2cPort.writeBit(Mpu6050Helper.FIFO_EN, value,
-				Mpu6050Helper.SLV1_FIFO_EN_BIT);
+		i2cPort.writeBit(Mpu6050Constants.FIFO_EN, value,
+				Mpu6050Constants.SLV1_FIFO_EN_BIT);
 	}
 
 	public byte getSLV1_FIFO_EN() {
-		return i2cPort.readBit(Mpu6050Helper.FIFO_EN,
-				Mpu6050Helper.SLV1_FIFO_EN_BIT);
+		return i2cPort.readBit(Mpu6050Constants.FIFO_EN,
+				Mpu6050Constants.SLV1_FIFO_EN_BIT);
 	}
 
 	public void setSLV0_FIFO_EN(byte value) {
-		i2cPort.writeBit(Mpu6050Helper.FIFO_EN, value,
-				Mpu6050Helper.SLV0_FIFO_EN_BIT);
+		i2cPort.writeBit(Mpu6050Constants.FIFO_EN, value,
+				Mpu6050Constants.SLV0_FIFO_EN_BIT);
 	}
 
 	public byte getSLV0_FIFO_EN() {
-		return i2cPort.readBit(Mpu6050Helper.FIFO_EN,
-				Mpu6050Helper.SLV0_FIFO_EN_BIT);
+		return i2cPort.readBit(Mpu6050Constants.FIFO_EN,
+				Mpu6050Constants.SLV0_FIFO_EN_BIT);
 	}
 
 	public short getFIFO_Count() {
-		return i2cPort.readWord(Mpu6050Helper.FIFO_COUNTH,
-				Mpu6050Helper.FIFO_COUNTL);
+		return i2cPort.readWord(Mpu6050Constants.FIFO_COUNTH,
+				Mpu6050Constants.FIFO_COUNTL);
 	}
 
 	public void setFIFO_Enable(byte value) {
-		i2cPort.writeBit(Mpu6050Helper.USER_CTRL, value,
-				Mpu6050Helper.FIFO_EN_BIT);
+		i2cPort.writeBit(Mpu6050Constants.USER_CTRL, value,
+				Mpu6050Constants.FIFO_EN_BIT);
 	}
 
 	public byte getFIFO_Enable() {
-		return i2cPort.readBit(Mpu6050Helper.USER_CTRL, Mpu6050Helper.FIFO_EN_BIT);
+		return i2cPort.readBit(Mpu6050Constants.USER_CTRL, Mpu6050Constants.FIFO_EN_BIT);
 	}
 
 	public byte[] getFIFO_Data(byte length) {
-		return i2cPort.readByteBuffer(Mpu6050Helper.FIFO_R_W, length);
+		return i2cPort.readByteBuffer(Mpu6050Constants.FIFO_R_W, length);
 	}
 
 	public void setFIFO_Reset(byte value) {
-		i2cPort.writeBit(Mpu6050Helper.USER_CTRL, value,
-				Mpu6050Helper.FIFO_RESET_BIT);
+		i2cPort.writeBit(Mpu6050Constants.USER_CTRL, value,
+				Mpu6050Constants.FIFO_RESET_BIT);
 	}
 
 	public byte getFIFO_Reset() {
-		return i2cPort.readBit(Mpu6050Helper.USER_CTRL,
-				Mpu6050Helper.FIFO_RESET_BIT);
+		return i2cPort.readBit(Mpu6050Constants.USER_CTRL,
+				Mpu6050Constants.FIFO_RESET_BIT);
 	}
 }

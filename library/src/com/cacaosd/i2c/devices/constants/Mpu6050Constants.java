@@ -14,9 +14,9 @@
  *  You should have received a copy of the GNU General Public License
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.cacaosd.i2c.devices;
+package com.cacaosd.i2c.devices.constants;
 
-public class Mpu6050Helper {
+public class Mpu6050Constants {
 
 	public static final byte SELF_TEST_X = 0x0D;
 	public static final byte SELF_TEST_Y = 0x0E;
