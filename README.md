@@ -2,7 +2,7 @@ Linux-I2C-Java
 ===========================
 This native library written for Linux Systems. This library include JNI(java Native Interface) implementation. Find native library in this [repo](https://github.com/cagdasc/Linux-I2C).
 You can use I2C interface for your Java applications with this library.
-It's not fully tested but You can find a simple sample for Mpu6050.
+It's not fully tested but You can find a simple samples for Mpu6050 and ADXL345.
 
 **Warning:** It's only experimental, not in use production.
 
@@ -13,11 +13,12 @@ It's not fully tested but You can find a simple sample for Mpu6050.
 #Usage
 	make clean
 	make all
-	make run
+	make runMpu6050
+	make runAdxl345
 
 #License
 
-	Copyright (C) 2014  Cagdas Caglak cagdascaglak@gmail.com http://expcodes.blogspot.com.tr/
+	Copyright (C) 2017  Cagdas Caglak cagdascaglak@gmail.com
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
