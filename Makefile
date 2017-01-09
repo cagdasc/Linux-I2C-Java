@@ -27,23 +27,31 @@ CLASSPATH_FLAGS1=-classpath bin/
 
 SRC_CORE_LIB=library/src/com/cacaosd/i2c/core/I2cPort.java
 SRC_DEV_LIB=library/src/com/cacaosd/i2c/devices/*.java
-SRC_MPU6050_EX=samples/src/com/cacaosd/i2c/Mpu6050Sample.java
+SRC_DEV_CONST=library/src/com/cacaosd/i2c/devices/constants/*.java
+SRC_MPU6050_SAMPLE=samples/src/com/cacaosd/i2c/Mpu6050Sample.java
+SRC_ADXL345_SAMPLE=samples/src/com/cacaosd/i2c/ADXL345Sample.java
 
 COMPILE=Compile
 MPU6050_EXEC=com.cacaosd.i2c.Mpu6050Sample
+ADXL345_EXEC=com.cacaosd.i2c.ADXL345Sample
 
 all: $(COMPILE)
 	@echo "Successful."
 
-run:
+runMpu650:
 	@echo "Running..."
 	@echo "java library path="$(SLIB_PATH)
 	@$(JVM) -Djava.library.path=$(SLIB_PATH) $(CLASSPATH_FLAGS1) $(MPU6050_EXEC)
 
+runAdxl345:
+	@echo "Running..."
+	@echo "java library path="$(SLIB_PATH)
+	@$(JVM) -Djava.library.path=$(SLIB_PATH) $(CLASSPATH_FLAGS1) $(ADXL345_EXEC)
+
 $(COMPILE): $(SLIB_OUTPUT)
 	@mkdir -p bin
 	@echo "Java files compiling..."
-	@$(JC) $(CLASSPATH_FLAGS0) $(CLASSPATH_FLAGS1) $(SRC_CORE_LIB) $(SRC_DEV_LIB) $(SRC_MPU6050_EX)
+	@$(JC) $(CLASSPATH_FLAGS0) $(CLASSPATH_FLAGS1) $(SRC_CORE_LIB) $(SRC_DEV_LIB) $(SRC_DEV_CONST) $(SRC_MPU6050_SAMPLE) $(SRC_ADXL345_SAMPLE)
 
 $(SLIB_OUTPUT):
 	@echo "Shared library creating..."
