@@ -21,6 +21,14 @@ JNIEXPORT jbyte JNICALL Java_com_cacaosd_i2c_core_I2cPort_openConnection
   (JNIEnv *, jobject);
 
 /*
+* Class:     com_cacaosd_i2c_core_I2cPort
+* Method:    closeConnection
+* Signature: ()V
+*/
+JNIEXPORT jbyte JNICALL Java_com_cacaosd_i2c_core_I2cPort_closeConnection
+(JNIEnv *, jobject);
+
+/*
  * Class:     com_cacaosd_i2c_core_I2cPort
  * Method:    setDeviceAddress
  * Signature: (B)V

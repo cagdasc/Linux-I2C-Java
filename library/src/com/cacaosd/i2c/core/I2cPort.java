@@ -28,12 +28,18 @@ public class I2cPort {
     public I2cPort(byte device_address, byte bus) {
         setBusAddress(bus);
         setDeviceAddress(device_address);
+        openConnection();
     }
 
     /**
      * Open I2C connection.
      */
     public native void openConnection();
+
+    /**
+     * Close I2C connection.
+     */
+    public native void closeConnection();
 
     /**
      * Set slave device address.
