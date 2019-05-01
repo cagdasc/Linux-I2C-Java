@@ -10,14 +10,14 @@ It's not fully tested but You can find a simple samples for Mpu6050 and ADXL345.
 
 **Important Note:** You need to set JAVA_HOME environment variable.
 
-#Usage
+## Usage
 
 	make clean
 	make all
 	make runMpu6050
 	make runAdxl345
 
-#License
+## License
 
 	Copyright (C) 2017  Cagdas Caglak cagdascaglak@gmail.com
 
