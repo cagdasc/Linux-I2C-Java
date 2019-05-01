@@ -11,6 +11,7 @@ It's not fully tested but You can find a simple samples for Mpu6050 and ADXL345.
 **Important Note:** You need to set JAVA_HOME environment variable.
 
 #Usage
+
 	make clean
 	make all
 	make runMpu6050
